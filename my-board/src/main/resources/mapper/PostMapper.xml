@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kye.my_board.repository.PostMapper">
+
+    <select id="findAll" resultType="kye.my_board.domain.Post">
+        SELECT *
+        FROM POSTS
+    </select>
+
+    <select id="findById" parameterType="java.lang.Long" resultType="kye.my_board.domain.Post">
+        SELECT *
+        FROM POSTS
+        WHERE ID = #{id}
+    </select>
+
+    <insert id="save" parameterType="kye.my_board.domain.Post">
+        INSERT INTO POSTS(AUTHOR_ID, author_nickname, title, content, created_at)
+        VALUES (#{authorId}, #{authorNickname}, #{title}, #{content}, #{createdAt})
+    </insert>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        DELETE FROM POSTS
+        WHERE ID = #{id}
+    </delete>
+
+    <select id="findByAuthorId" parameterType="java.lang.Long" resultType="kye.my_board.domain.Post">
+        SELECT *
+        FROM POSTS
+        WHERE AUTHOR_ID = #{authorId}
+    </select>
+
+</mapper>
