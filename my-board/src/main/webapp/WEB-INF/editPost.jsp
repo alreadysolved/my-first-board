@@ -3,7 +3,7 @@
 
 <html>
 <head>
-    <title>글 작성</title>
+    <title>글 수정</title>
     <style>
         .top-menu {
             background-color: #f0f0f0;
@@ -60,10 +60,11 @@
 </div>
 
 <div class="form-container">
-    <h2>글 작성</h2>
+    <h2>글 수정</h2>
 
     <!-- PostForm을 모델 속성으로 사용 -->
-    <form:form method="post" modelAttribute="postForm" action="/posts">
+    <form:form method="post" modelAttribute="editForm" action="/posts/${editForm.id}">
+        <input type="hidden" name="_method" value="patch"/>
 
         <label for="title">제목</label>
         <form:input path="title" id="title"/>
@@ -73,7 +74,7 @@
         <form:textarea path="content" id="content" rows="10"/>
         <form:errors path="content" cssClass="error"/>
 
-        <button type="submit">작성하기</button>
+        <button type="submit">수정하기</button>
     </form:form>
 </div>
 

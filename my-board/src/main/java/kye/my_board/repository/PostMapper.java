@@ -13,4 +13,5 @@ public interface PostMapper {
     void delete(Long id);
     Post findById(Long id);
     List<Post> findByAuthorId(Long authorId);
+    void update(Post post);
 }

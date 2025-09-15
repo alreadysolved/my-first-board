@@ -19,6 +19,9 @@
     <insert id="save" parameterType="kye.my_board.domain.Post">
         INSERT INTO POSTS(AUTHOR_ID, author_nickname, title, content, created_at)
         VALUES (#{authorId}, #{authorNickname}, #{title}, #{content}, #{createdAt})
+        <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
+            SELECT ISEQ$$_78181.CURRVAL FROM DUAL
+        </selectKey>
     </insert>
 
     <delete id="delete" parameterType="java.lang.Long">
@@ -31,5 +34,11 @@
         FROM POSTS
         WHERE AUTHOR_ID = #{authorId}
     </select>
+
+    <update id="update" parameterType="kye.my_board.domain.Post">
+        UPDATE POSTS
+        SET TITLE = #{title}, CONTENT = #{content}
+        WHERE ID = #{id}
+    </update>
 
 </mapper>

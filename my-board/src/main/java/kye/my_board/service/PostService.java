@@ -20,8 +20,7 @@ public class PostService {
         return postMapper.findById(id);
     }
 
-    public void savePost(Post post) {
-        postMapper.save(post);
+    public void savePost(Post post) { postMapper.save(post);
     }
 
     public void deletePost(Long postId) {
@@ -30,5 +29,9 @@ public class PostService {
 
     public List<Post> findPostsByAuthorId(Long authorId) {
         return postMapper.findByAuthorId(authorId);
+    }
+
+    public void editPost(Post post) {
+        postMapper.update(post);
     }
 }

@@ -4,16 +4,14 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import kye.my_board.domain.Member;
 import kye.my_board.domain.Post;
+import kye.my_board.dto.EditForm;
 import kye.my_board.dto.PostForm;
 import kye.my_board.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.sql.Timestamp;
@@ -29,7 +27,7 @@ public class PostController {
     // 글 작성 폼
     @GetMapping("/posts/new")
     public String CreatePostForm(Model model) {
-        model.addAttribute("PostForm", new PostForm());
+        model.addAttribute("postForm", new PostForm());
         return "createPost";
     }
 
@@ -49,7 +47,8 @@ public class PostController {
         post.setCreatedAt(LocalDateTime.now());
         postService.savePost(post);
 
-        return "redirect:/posts";
+        Long postId = post.getId();
+        return "redirect:/posts/" + postId;
     }
 
     // 글 조회
@@ -82,5 +81,32 @@ public class PostController {
         postService.deletePost(id);
         redirectAttributes.addFlashAttribute("successMessage", "글이 삭제되었습니다.");
         return "redirect:/posts";
+    }
+
+    // 글 수정
+    @GetMapping("/posts/{id}/edit")
+    public String updatePostForm(@PathVariable Long id, Model model) {
+        Post post = postService.findPostById(id);
+        EditForm editForm = new EditForm();
+        editForm.setId(id);
+        editForm.setTitle(post.getTitle());
+        editForm.setContent(post.getContent());
+        model.addAttribute("editForm", editForm);
+
+        return "editPost";
+    }
+
+    @PatchMapping("/posts/{id}")
+    public String editPost(@PathVariable Long id, @Valid PostForm postForm, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "editPost";
+        }
+
+        Post post = postService.findPostById(id);
+        post.setTitle(postForm.getTitle());
+        post.setContent(postForm.getContent());
+        postService.editPost(post);
+
+        return "redirect:/posts/{id}";
     }
 }
