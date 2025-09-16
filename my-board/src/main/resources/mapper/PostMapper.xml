@@ -8,6 +8,7 @@
     <select id="findAll" resultType="kye.my_board.domain.Post">
         SELECT *
         FROM POSTS
+        ORDER BY CREATED_AT DESC
     </select>
 
     <select id="findById" parameterType="java.lang.Long" resultType="kye.my_board.domain.Post">
