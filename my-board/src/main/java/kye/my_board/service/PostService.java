@@ -42,7 +42,7 @@ public class PostService {
         Member member = (Member) session.getAttribute("loginMember");
         if (!post.getAuthorId().equals(member.getId())) {
             post.setViews(post.getViews() + 1);
-            postMapper.updateView(post);
+            postMapper.updateViews(post);
         }
     }
 }

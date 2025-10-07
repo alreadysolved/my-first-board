@@ -14,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -31,14 +32,14 @@ public class AuthController {
 
     @PostMapping("/login")
     public String login(@Valid LoginForm loginForm, BindingResult result, HttpSession session) {
-        Optional<Member> findMember = authService.findMemberByEmail(loginForm.getEmail());
+        List<Member> findMember = authService.findMemberByEmail(loginForm.getEmail());
         // 이메일 가입 여부 검증
         if (findMember.isEmpty()) {
             result.rejectValue("email", "error.email", "가입되지 않은 이메일입니다.");
             return "login";
         }
 
-        Member member = findMember.get();
+        Member member = findMember.get(0);
         if (!passwordEncoder.matches(loginForm.getPassword(), member.getPassword())) {
             result.rejectValue("password", "error.password", "비밀번호가 올바르지 않습니다.");
             return "login";
@@ -57,12 +58,12 @@ public class AuthController {
     @PostMapping("/join")
     public String join(@Valid JoinForm form, BindingResult result) {
         // 중복 이메일 검증
-        if (authService.findMemberByEmail(form.getEmail()).isPresent()) {
+        if (!authService.findMemberByEmail(form.getEmail()).isEmpty()) {
             result.rejectValue("email", "error.email", "사용중인 이메일입니다.");
         }
 
         // 중복 별명 검증
-        if (authService.findMemberByNickname(form.getNickname()).isPresent()) {
+        if (!authService.findMemberByNickname(form.getNickname()).isEmpty()) {
             result.rejectValue("nickname", "error.nickname", "사용중인 별명입니다.");
         }
 

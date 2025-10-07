@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kye.my_board.repository.CommentMapper">
+
+    <insert id="save" parameterType="kye.my_board.domain.Comment">
+        INSERT INTO COMMENTS(post_id, author_id, author_nickname, content, created_at)
+        VALUES (#{postId}, #{authorId}, #{authorNickname}, #{content}, #{createdAt})
+    </insert>
+
+    <select id="findByPostId" parameterType="java.lang.Long" resultType="kye.my_board.domain.Comment">
+        SELECT *
+        FROM COMMENTS
+        WHERE POST_ID = #{postId}
+    </select>
+
+</mapper>

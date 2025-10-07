@@ -59,7 +59,7 @@
     <fmt:formatDate value="${post.createdAtDate}" pattern="yyyy-MM-dd" var="postDateStr"/>
     <tr>
       <td>${post.id}</td>
-      <td><a href="/posts/${post.id}">${post.title}</a></td>
+      <td><a href="/posts/${post.id}">${post.title}(${post.comments})</a></td>
       <td>${post.authorNickname}</td>
       <td>
         <c:choose>

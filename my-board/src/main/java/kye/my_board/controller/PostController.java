@@ -2,10 +2,13 @@ package kye.my_board.controller;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import kye.my_board.domain.Comment;
 import kye.my_board.domain.Member;
 import kye.my_board.domain.Post;
+import kye.my_board.dto.CommentForm;
 import kye.my_board.dto.EditForm;
 import kye.my_board.dto.PostForm;
+import kye.my_board.service.CommentService;
 import kye.my_board.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -17,12 +20,15 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
 public class PostController {
 
     private final PostService postService;
+    private final CommentService commentService;
 
     // 글 작성 폼
     @GetMapping("/posts/new")
@@ -57,9 +63,15 @@ public class PostController {
         Post post = postService.findPostById(id);
         postService.increasePostViews(id, session); // 조회수 증가
         Date createdAtAsDate = Timestamp.valueOf(post.getCreatedAt());
+        List<Comment> comments = commentService.findCommentsByPostId(id);
+        comments.forEach(comment -> {
+            comment.setCreatedAtDate(Timestamp.valueOf(comment.getCreatedAt()));
+        });
 
         model.addAttribute("post", post);
         model.addAttribute("createdAt", createdAtAsDate);
+        model.addAttribute("commentForm", new CommentForm());
+        model.addAttribute("comments", comments);
 
         return "post";
     }
@@ -86,7 +98,7 @@ public class PostController {
 
     // 글 수정
     @GetMapping("/posts/{id}/edit")
-    public String updatePostForm(@PathVariable Long id, Model model) {
+    public String editPostForm(@PathVariable Long id, Model model) {
         Post post = postService.findPostById(id);
         EditForm editForm = new EditForm();
         editForm.setId(id);

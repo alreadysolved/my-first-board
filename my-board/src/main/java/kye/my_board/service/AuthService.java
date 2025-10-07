@@ -6,6 +6,7 @@ import kye.my_board.repository.MemberMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,11 +19,11 @@ public class AuthService {
         memberMapper.save(member);
     }
 
-    public Optional<Member> findMemberByEmail(String email) {
+    public List<Member> findMemberByEmail(String email) {
         return memberMapper.findByEmail(email);
     }
 
-    public Optional<Member> findMemberByNickname(String nickname) {
+    public List<Member> findMemberByNickname(String nickname) {
         return memberMapper.findByNickname(nickname);
     }
 

@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+
 <html>
 <head>
     <title>내가 쓴 글 목록</title>
@@ -55,7 +56,7 @@
         <fmt:formatDate value="${post.createdAtDate}" pattern="yyyy-MM-dd" var="postDateStr"/>
         <tr>
             <td>${post.id}</td>
-            <td><a href="/posts/${post.id}">${post.title}</a></td>
+            <td><a href="/posts/${post.id}">${post.title}${post.comments}</a></td>
             <td>
                 <c:choose>
                     <c:when test="${postDateStr eq todayStr}">

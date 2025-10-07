@@ -42,7 +42,7 @@
         WHERE ID = #{id}
     </update>
 
-    <update id="updateView" parameterType="kye.my_board.domain.Post">
+    <update id="updateViews" parameterType="kye.my_board.domain.Post">
         UPDATE POSTS
         SET VIEWS = #{views}
         WHERE ID = #{id}

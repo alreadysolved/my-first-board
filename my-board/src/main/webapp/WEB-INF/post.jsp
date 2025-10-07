@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <html>
 <head>
@@ -62,6 +63,31 @@
     <button type="submit">삭제</button>
   </form>
 </c:if>
+
+<br/>
+<form:form method="post" modelAttribute="commentForm" action="/posts/${post.id}/comments">
+
+  <label for="content"></label>
+  <form:textarea path="content" id="content" rows="10"/>
+  <form:errors path="content" cssClass="error"/>
+
+  <button type="submit">작성하기</button>
+
+</form:form>
+
+<table border="1">
+  <c:if test="${!empty comments}">
+    <c:forEach var="comment" items="${comments}">
+      <tr>
+        ${comment.authorNickname} | <fmt:formatDate value="${comment.createdAtDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
+      </tr>
+      <br/>
+      <tr>
+        ${comment.content}
+      </tr>
+    </c:forEach>
+  </c:if>
+</table>
 
 <a href="/posts">목록으로</a>
 </body>
