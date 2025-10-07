@@ -53,8 +53,9 @@ public class PostController {
 
     // 글 조회
     @GetMapping("/posts/{id}")
-    public String showPost(@PathVariable Long id, Model model) {
+    public String showPost(@PathVariable Long id, HttpSession session, Model model) {
         Post post = postService.findPostById(id);
+        postService.increasePostViews(id, session); // 조회수 증가
         Date createdAtAsDate = Timestamp.valueOf(post.getCreatedAt());
 
         model.addAttribute("post", post);
@@ -74,7 +75,7 @@ public class PostController {
         }
         // 내 글이 아닌 경우
         Post post = postService.findPostById(id);
-        if (loginMember.getId() != post.getAuthorId()) {
+        if (!loginMember.getId().equals(post.getAuthorId())) {
             redirectAttributes.addFlashAttribute("errorMessage", "삭제 권한이 없습니다.");
         }
 

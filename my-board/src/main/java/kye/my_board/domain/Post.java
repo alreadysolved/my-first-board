@@ -16,5 +16,6 @@ public class Post {
     private String title;
     private String content;
     private LocalDateTime createdAt;
+    private Long views;
     private Date createdAtDate; // LocalDateTime -> Date 변환용(DB에는 X)
 }

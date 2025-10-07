@@ -42,4 +42,10 @@
         WHERE ID = #{id}
     </update>
 
+    <update id="updateView" parameterType="kye.my_board.domain.Post">
+        UPDATE POSTS
+        SET VIEWS = #{views}
+        WHERE ID = #{id}
+    </update>
+
 </mapper>

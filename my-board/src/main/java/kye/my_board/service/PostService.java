@@ -1,5 +1,7 @@
 package kye.my_board.service;
 
+import jakarta.servlet.http.HttpSession;
+import kye.my_board.domain.Member;
 import kye.my_board.domain.Post;
 import kye.my_board.repository.PostMapper;
 import lombok.RequiredArgsConstructor;
@@ -33,5 +35,14 @@ public class PostService {
 
     public void editPost(Post post) {
         postMapper.update(post);
+    }
+
+    public void increasePostViews(Long id, HttpSession session) {
+        Post post = findPostById(id);
+        Member member = (Member) session.getAttribute("loginMember");
+        if (!post.getAuthorId().equals(member.getId())) {
+            post.setViews(post.getViews() + 1);
+            postMapper.updateView(post);
+        }
     }
 }

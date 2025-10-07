@@ -41,6 +41,10 @@
     </td>
   </tr>
   <tr>
+    <th>조회수</th>
+    <td>${post.views}</td>
+  </tr>
+  <tr>
     <th>내용</th>
     <td>${post.content}</td>
   </tr>
