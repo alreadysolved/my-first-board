@@ -63,15 +63,15 @@ public class PostController {
         Post post = postService.findPostById(id);
         postService.increasePostViews(id, session); // 조회수 증가
         Date createdAtAsDate = Timestamp.valueOf(post.getCreatedAt());
-        List<Comment> comments = commentService.findCommentsByPostId(id);
-        comments.forEach(comment -> {
+        List<Comment> commentsList = commentService.findCommentsByPostId(id);
+        commentsList.forEach(comment -> {
             comment.setCreatedAtDate(Timestamp.valueOf(comment.getCreatedAt()));
         });
 
         model.addAttribute("post", post);
         model.addAttribute("createdAt", createdAtAsDate);
         model.addAttribute("commentForm", new CommentForm());
-        model.addAttribute("comments", comments);
+        model.addAttribute("commentsList", commentsList);
 
         return "post";
     }

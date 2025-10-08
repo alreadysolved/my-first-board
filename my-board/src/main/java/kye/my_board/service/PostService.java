@@ -45,4 +45,10 @@ public class PostService {
             postMapper.updateViews(post);
         }
     }
+
+    public void updatePostComments(Long id, int value) {
+        Post post = findPostById(id);
+        post.setComments(post.getComments() + value);
+        postMapper.updateComments(post);
+    }
 }

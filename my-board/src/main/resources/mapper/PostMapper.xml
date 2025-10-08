@@ -48,4 +48,10 @@
         WHERE ID = #{id}
     </update>
 
+    <update id="updateComments" parameterType="kye.my_board.domain.Post">
+        UPDATE POSTS
+        SET COMMENTS = #{comments}
+        WHERE ID = #{id}
+    </update>
+
 </mapper>

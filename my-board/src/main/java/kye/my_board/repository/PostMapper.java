@@ -15,4 +15,5 @@ public interface PostMapper {
     List<Post> findByAuthorId(Long authorId);
     void update(Post post);
     void updateViews(Post post);
+    void updateComments(Post post);
 }

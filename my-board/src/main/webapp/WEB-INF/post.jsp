@@ -76,8 +76,8 @@
 </form:form>
 
 <table border="1">
-  <c:if test="${!empty comments}">
-    <c:forEach var="comment" items="${comments}">
+  <c:if test="${!empty commentsList}">
+    <c:forEach var="comment" items="${commentsList}">
       <tr>
         ${comment.authorNickname} | <fmt:formatDate value="${comment.createdAtDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
       </tr>
