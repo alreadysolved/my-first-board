@@ -79,20 +79,20 @@ public class PostController {
     // 글 삭제
     @DeleteMapping("/posts/{id}")
     public String deletePost(@PathVariable Long id, HttpSession session, RedirectAttributes redirectAttributes) {
-        Member loginMember = (Member) session.getAttribute("loginMember");
-        // 로그아웃 상태일 경우
-        if (loginMember == null) {
-            redirectAttributes.addFlashAttribute("errorMessage", "로그인 후 이용 가능합니다.");
-            return "redirect:/login";
-        }
-        // 내 글이 아닌 경우
-        Post post = postService.findPostById(id);
-        if (!loginMember.getId().equals(post.getAuthorId())) {
-            redirectAttributes.addFlashAttribute("errorMessage", "삭제 권한이 없습니다.");
-        }
+//        Member loginMember = (Member) session.getAttribute("loginMember");
+//        // 로그아웃 상태일 경우
+//        if (loginMember == null) {
+//            redirectAttributes.addFlashAttribute("errorMessage", "로그인 후 이용 가능합니다.");
+//            return "redirect:/login";
+//        }
+//        // 내 글이 아닌 경우
+//        Post post = postService.findPostById(id);
+//        if (!loginMember.getId().equals(post.getAuthorId())) {
+//            redirectAttributes.addFlashAttribute("errorMessage", "삭제 권한이 없습니다.");
+//        }
 
         postService.deletePost(id);
-        redirectAttributes.addFlashAttribute("successMessage", "글이 삭제되었습니다.");
+        commentService.deleteCommentsByPostId(id);
         return "redirect:/posts";
     }
 

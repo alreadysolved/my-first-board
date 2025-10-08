@@ -14,6 +14,16 @@
         SELECT *
         FROM COMMENTS
         WHERE POST_ID = #{postId}
+        ORDER BY CREATED_AT ASC
     </select>
 
+    <delete id="deleteByCommentId" parameterType="java.lang.Long">
+        DELETE FROM COMMENTS
+        WHERE ID = #{id}
+    </delete>
+
+    <delete id="deleteByPostId" parameterType="java.lang.Long">
+        DELETE FROM COMMENTS
+        WHERE POST_ID = #{postId}
+    </delete>
 </mapper>

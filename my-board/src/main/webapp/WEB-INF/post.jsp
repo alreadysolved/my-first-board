@@ -79,12 +79,22 @@
   <c:if test="${!empty commentsList}">
     <c:forEach var="comment" items="${commentsList}">
       <tr>
-        ${comment.authorNickname} | <fmt:formatDate value="${comment.createdAtDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
+        ${comment.authorNickname} | <fmt:formatDate value="${comment.createdAtDate}"  pattern="yyyy-MM-dd HH:mm"/>
+
+          <c:if test="${sessionScope.loginMember != null and sessionScope.loginMember.id == comment.authorId}">
+            <form action="/posts/${post.id}/comments/${comment.id}" method="post" onsubmit="return confirm('정말 삭제하시겠습니까?');">
+              <input type="hidden" name="_method" value="delete"/>
+              <button type="submit">삭제</button>
+            </form>
+          </c:if>
+
       </tr>
       <br/>
       <tr>
         ${comment.content}
       </tr>
+      <br/>
+      <br/>
     </c:forEach>
   </c:if>
 </table>
