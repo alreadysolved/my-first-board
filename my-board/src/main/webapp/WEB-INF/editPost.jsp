@@ -3,80 +3,115 @@
 
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>글 수정</title>
     <style>
+        body {
+            font-family: "Pretendard", sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            color: #333;
+        }
+
+        .wrapper {
+            max-width: 600px;
+            margin: 40px auto 0 auto;
+            padding: 0 20px;
+        }
+
         .top-menu {
-            background-color: #f0f0f0;
-            padding: 10px;
+            text-align: right;
             margin-bottom: 20px;
         }
+
         .top-menu a {
-            margin-right: 15px;
+            margin-left: 8px;
             text-decoration: none;
             font-weight: bold;
             color: #333;
         }
-        .form-container {
-            width: 500px;
-            margin: auto;
-        }
-        .form-container label {
-            display: block;
-            margin-top: 10px;
-            font-weight: bold;
-        }
-        .form-container input[type="text"], .form-container textarea {
+
+        .container {
+            background-color: white;
+            padding: 30px 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             width: 100%;
-            padding: 8px;
-            margin-top: 5px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+            box-sizing: border-box;
         }
-        .form-container button {
-            margin-top: 15px;
-            padding: 8px 15px;
+
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 24px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
             font-weight: bold;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 4px;
+            font-size: 14px;
         }
-        .form-container button:hover {
-            background-color: #45a049;
+
+        input, textarea {
+            width: 100%;
+            padding: 8px 10px;
+            margin-bottom: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+            box-sizing: border-box;
         }
+
         .error {
-            color: red;
-            font-size: 0.9em;
+            color: #d9534f;
+            font-size: 13px;
+            margin-top: -8px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            border: none;
+            border-radius: 6px;
+            color: white;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
+<div class="wrapper">
+    <div class="top-menu">
+        <a href="/posts/new">글쓰기</a>
+        <a href="/posts/mine">내가 쓴 글</a>
+        <a href="/logout">로그아웃</a>
+    </div>
 
-<div class="top-menu">
-    <a href="/posts/new">글쓰기</a>
-    <a href="/posts/mine">내가 쓴 글</a>
-    <a href="/logout">로그아웃</a>
+    <div class="container">
+        <h2>글 수정</h2>
+
+        <form:form method="post" modelAttribute="editForm" action="/posts/${editForm.id}">
+            <input type="hidden" name="_method" value="patch"/>
+
+            <label for="title">제목</label>
+            <form:input path="title" id="title"/>
+            <form:errors path="title" cssClass="error"/>
+
+            <label for="content">내용</label>
+            <form:textarea path="content" id="content" rows="10"/>
+            <form:errors path="content" cssClass="error"/>
+
+            <button type="submit">수정하기</button>
+        </form:form>
+    </div>
 </div>
-
-<div class="form-container">
-    <h2>글 수정</h2>
-
-    <!-- PostForm을 모델 속성으로 사용 -->
-    <form:form method="post" modelAttribute="editForm" action="/posts/${editForm.id}">
-        <input type="hidden" name="_method" value="patch"/>
-
-        <label for="title">제목</label>
-        <form:input path="title" id="title"/>
-        <form:errors path="title" cssClass="error"/>
-
-        <label for="content">내용</label>
-        <form:textarea path="content" id="content" rows="10"/>
-        <form:errors path="content" cssClass="error"/>
-
-        <button type="submit">수정하기</button>
-    </form:form>
-</div>
-
 </body>
 </html>

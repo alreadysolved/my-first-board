@@ -10,12 +10,24 @@
         VALUES (#{postId}, #{authorId}, #{authorNickname}, #{content}, #{createdAt})
     </insert>
 
+    <select id="findById" parameterType="java.lang.Long" resultType="kye.my_board.domain.Comment">
+        SELECT *
+        FROM COMMENTS
+        WHERE ID = #{id}
+    </select>
+
     <select id="findByPostId" parameterType="java.lang.Long" resultType="kye.my_board.domain.Comment">
         SELECT *
         FROM COMMENTS
         WHERE POST_ID = #{postId}
         ORDER BY CREATED_AT ASC
     </select>
+
+    <update id="update" parameterType="kye.my_board.domain.Comment">
+        UPDATE COMMENTS
+        SET CONTENT = #{content}
+        WHERE ID = #{id}
+    </update>
 
     <delete id="deleteByCommentId" parameterType="java.lang.Long">
         DELETE FROM COMMENTS

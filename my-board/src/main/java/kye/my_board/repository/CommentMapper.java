@@ -9,7 +9,9 @@ import java.util.Optional;
 @Mapper
 public interface CommentMapper {
     void save(Comment comment);
+    Comment findById(Long id);
     List<Comment> findByPostId(Long postId);
+    void update(Comment comment);
     void deleteByCommentId(Long id);
     void deleteByPostId(Long postId);
 }

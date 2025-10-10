@@ -27,4 +27,12 @@ public class CommentService {
     public void deleteCommentsByPostId(Long postId) {
         commentMapper.deleteByPostId(postId);
     }
+
+    public Comment findCommentById(Long id) {
+        return commentMapper.findById(id);
+    }
+
+    public void editComment(Comment comment) {
+        commentMapper.update(comment);
+    }
 }
