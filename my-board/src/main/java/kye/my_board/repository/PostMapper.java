@@ -16,4 +16,5 @@ public interface PostMapper {
     void update(Post post);
     void updateViews(Post post);
     void updateComments(Post post);
+    List<Post> searchPostsByType(String type, String keyword);
 }

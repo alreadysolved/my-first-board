@@ -51,4 +51,8 @@ public class PostService {
         post.setComments(post.getComments() + value);
         postMapper.updateComments(post);
     }
+
+    public List<Post> searchPosts(String type, String keyword) {
+        return postMapper.searchPostsByType(type, keyword);
+    }
 }

@@ -54,4 +54,22 @@
         WHERE ID = #{id}
     </update>
 
+    <select id="searchPostsByType" resultType="kye.my_board.domain.Post">
+        SELECT *
+        FROM POSTS
+        <where>
+            <choose>
+                <when test="type == 'title'">
+                    TITLE LIKE '%' || #{keyword} || '%'
+                </when>
+                <when test="type == 'titleContent'">
+                    TITLE LIKE '%' || #{keyword} || '%' OR CONTENT LIKE '%' || #{keyword} || '%'
+                </when>
+                <when test="type == 'author">
+                    AUTHOR_NICKNAME LIKE '%' || #{keyword} || '%'
+                </when>
+            </choose>
+        </where>
+    </select>
+
 </mapper>

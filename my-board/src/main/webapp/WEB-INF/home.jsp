@@ -108,8 +108,26 @@
 
 <h2>전체 글 목록</h2>
 
+
+
 <jsp:useBean id="now" class="java.util.Date" scope="page" />
 <fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="todayStr" />
+
+<!-- 검색 기능 -->
+<div class="search-box">
+  <form action="/posts" method="get" style="display: flex; justify-content: flex-end; align-items: center; gap: 8px;">
+    <select name="type" class="search-select">
+      <option value="title" ${param.type == 'title' ? 'selected' : ''}>제목</option>
+      <option value="titleContent" ${param.type == 'titleContent' ? 'selected' : ''}>제목 + 내용</option>
+      <option value="author" ${param.type == 'author' ? 'selected' : ''}>작성자</option>
+    </select>
+
+    <input type="text" name="keyword" class="search-input" placeholder="검색어를 입력하세요" value="${param.keyword}" />
+
+    <button type="submit" class="search-btn">검색</button>
+  </form>
+</div>
+
 
 <table>
   <tr>

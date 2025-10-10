@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -20,14 +21,22 @@ public class HomeController {
     private final PostService postService;
 
     @GetMapping({"/", "posts"})
-    public String home(Model model) {
-        List<Post> posts = postService.findAllPosts();
-        if (posts.isEmpty()) posts = new ArrayList<>();
+    public String home(@RequestParam(required = false) String type,
+                       @RequestParam(required = false) String keyword,
+                       Model model) {
+        List<Post> posts;
 
+        if (keyword != null && !keyword.isBlank()) {
+            posts = postService.searchPosts(type, keyword);
+        }
+        else {
+            posts = postService.findAllPosts();
+        }
+
+        if (posts.isEmpty()) posts = new ArrayList<>();
         posts.forEach(post -> {
             post.setCreatedAtDate(Timestamp.valueOf(post.getCreatedAt()));
         });
-
         model.addAttribute("posts", posts);
 
         return "home";
@@ -47,4 +56,5 @@ public class HomeController {
 
         return "myPosts";
     }
+
 }

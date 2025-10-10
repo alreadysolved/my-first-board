@@ -42,6 +42,17 @@
       padding: 10px;
     }
 
+    .post-content {
+      margin-top: 25px;
+      padding: 10px 0;
+      font-size: 16px;
+      line-height: 1.8;
+      color: #333;
+      white-space: pre-line;
+    }
+
+
+
     .top-menu {
       text-align: right;
       margin-bottom: 15px;
@@ -84,7 +95,6 @@
       background-color: #0056b3;
     }
 
-    /* 댓글 목록 */
     .comment-list {
       margin-top: 25px;
     }
@@ -217,8 +227,11 @@
   <tr><th>작성일</th>
     <td><fmt:formatDate value="${createdAt}" pattern="yyyy-MM-dd HH:mm" timeZone="Asia/Seoul"/></td></tr>
   <tr><th>조회수</th><td>${post.views}</td></tr>
-  <tr><th>내용</th><td>${post.content}</td></tr>
 </table>
+
+<div class="post-content">
+  ${post.content}
+</div>
 
 <c:if test="${sessionScope.loginMember != null and sessionScope.loginMember.id == post.authorId}">
   <div class="post-buttons">
