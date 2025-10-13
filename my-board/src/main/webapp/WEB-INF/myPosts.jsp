@@ -74,6 +74,14 @@
             text-decoration: none;
         }
 
+        a.back-link {
+            display: block;
+            width: fit-content;
+            margin-left: auto;
+            color: #007bff;
+            text-decoration: none;
+        }
+
         a:hover {
             text-decoration: underline;
         }
@@ -101,7 +109,8 @@
     </c:if>
 </div>
 
-<h2>내가 쓴 글 목록</h2>
+<h2>내가 쓴 글 목록 </h2>
+<a href="/posts" class="back-link">← 목록으로</a>
 
 <jsp:useBean id="now" class="java.util.Date" scope="page" />
 <fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="todayStr" />

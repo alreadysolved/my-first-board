@@ -191,10 +191,11 @@
     }
 
     a.back-link {
-      display: inline-block;
-      margin-top: 20px;
-      text-decoration: none;
+      display: block;
+      width: fit-content;
+      margin-left: auto;
       color: #007bff;
+      text-decoration: none;
     }
 
     a.back-link:hover {
@@ -220,14 +221,16 @@
 </div>
 
 <h2>글 상세보기</h2>
+<a href="/posts" class="back-link">← 목록으로</a>
 
 <table class="post-detail">
-  <tr><th>제목</th><td>${post.title}</td></tr>
   <tr><th>작성자</th><td>${post.authorNickname}</td></tr>
   <tr><th>작성일</th>
     <td><fmt:formatDate value="${createdAt}" pattern="yyyy-MM-dd HH:mm" timeZone="Asia/Seoul"/></td></tr>
   <tr><th>조회수</th><td>${post.views}</td></tr>
 </table>
+
+<h1 class="post-title">${post.title}</h1>
 
 <div class="post-content">
   ${post.content}
@@ -290,7 +293,7 @@
   </c:forEach>
 </div>
 
-<a href="/posts" class="back-link">← 목록으로</a>
+
 
 <script>
   function showEditForm(id) {
